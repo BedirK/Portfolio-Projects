@@ -101,26 +101,26 @@
 
          v.   Variable types, review.
           
-          SELECT COLUMN_NAME, DATA_TYPE 
-          FROM flodb.INFORMATION_SCHEMA.COLUMNS
-          WHERE TABLE_NAME = 'FLO'
+        SELECT COLUMN_NAME, DATA_TYPE 
+        FROM flodb.INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_NAME = 'FLO'
           
   -- 3. Create new variables for each customer's total purchases and spending.
 
-          ALTER TABLE flo ADD order_num_total AS (order_num_total_ever_online + order_num_total_ever_offline)
-          SELECT * FROM flo
+        ALTER TABLE flo ADD order_num_total AS (order_num_total_ever_online + order_num_total_ever_offline)
+        SELECT * FROM flo
 
-          ALTER TABLE flo ADD customer_value_total AS (customer_value_total_ever_offline + customer_value_total_ever_online)
-          SELECT * FROM flo
+        ALTER TABLE flo ADD customer_value_total AS (customer_value_total_ever_offline + customer_value_total_ever_online)
+        SELECT * FROM flo
           
  -- 4. See the breakdown of the number of customers, average number of products purchased, and average spend across shopping channels.
           
-          SELECT order_channel, 
-          COUNT(master_id) AS COUNT_MASTER_ID, 
-          ROUND(AVG(order_num_total), 0) AS AVG_ORDER_NUM_TOTAL, 
-          ROUND(AVG(customer_value_total), 0) AS AVG_CUSTOMER_VALUE_TOTAL 
-          FROM flo
-          GROUP BY order_channel
+         SELECT order_channel, 
+         COUNT(master_id) AS COUNT_MASTER_ID, 
+         ROUND(AVG(order_num_total), 0) AS AVG_ORDER_NUM_TOTAL, 
+         ROUND(AVG(customer_value_total), 0) AS AVG_CUSTOMER_VALUE_TOTAL 
+         FROM flo
+         GROUP BY order_channel
 
 
 -- 5. Rank the top 10 customers with the highest revenue.
@@ -129,7 +129,7 @@
 
 -- 6. List the top 10 customers with the most orders.
 
-        SELECT TOP 10 * FROM flo ORDER BY order_num_total DESC
+         SELECT TOP 10 * FROM flo ORDER BY order_num_total DESC
 
 ###############################################################
 # TASK 2: Calculating RFM Metrics
@@ -137,30 +137,31 @@
 
    -- # The analysis date will be two(2) days after the date of the customer's last purchase.
      
-SELECT MAX(last_order_date) AS MAX_SON_ALISVERIS_TARIHI FROM flo; -- "2021-05-30" date of the customer's most recent purchase
+         SELECT MAX(last_order_date) AS MAX_SON_ALISVERIS_TARIHI FROM flo; -- "2021-05-30" date of the customer's most recent purchase
 
 -- Analysis_date = (2021-06-01)
 
 -- Creating RFM Table including customer_id, recency, frequency ve monetary values
 
-SELECT master_id AS CUSTOMER_ID,
-       DATEDIFF(DAY, last_order_date, '20210601') AS RECENCY,
-     order_num_total AS FREQUENCY,
-     customer_value_total AS MONETARY,
-     NULL RECENCY_SCORE,
-     NULL FREQUENCY_SCORE,
-     NULL MONETARY_SCORE
-INTO RFM
-FROM flo
-;
+         SELECT master_id AS CUSTOMER_ID,
+           DATEDIFF(DAY, last_order_date, '20210601') AS RECENCY,
+           order_num_total AS FREQUENCY,
+           customer_value_total AS MONETARY,
+           NULL RECENCY_SCORE,
+           NULL FREQUENCY_SCORE,
+           NULL MONETARY_SCORE
+        INTO RFM
+        FROM flo
+      
 
 -- Check and Read Recency, Frequency ve Monetary values from RFM Table
 
-SELECT * FROM RFM;
+        SELECT * FROM RFM;
 
 ###############################################################
 # TASK 3: Calculating RF and RFM Scores
 ###############################################################
+  
 --# Converting Recency, Frequency, and Monetary metrics to scores between 1-5
 --# recording these scores as recency_score, frequency_score, and monetary_score
 
@@ -186,7 +187,7 @@ SELECT * FROM RFM;
     FROM RFM AS A
     ) T 
     WHERE T.Customer_ID = RFM.Customer_ID
-    );
+    )
 
     SELECT * FROM RFM
 
@@ -201,23 +202,23 @@ SELECT * FROM RFM;
     WHERE T.Customer_ID = RFM.Customer_ID
     )
 
-    SELECT * FROM RFM -- CHECK
+     SELECT * FROM RFM -- CHECK
 
   -- ###### RF_SCORE and RFM_SCORE Creation ###### --
 
   -- #  Expressing RECENCY_SCORE and FREQUENCY_SCORE as a single variable and saving it as RF_SCORE
 
-    ALTER TABLE RFM ADD RF_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE));
+      ALTER TABLE RFM ADD RF_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE));
 
-    SELECT * FROM RFM
+      SELECT * FROM RFM
 
    -- # Expressing RECENCY_SCORE, FREQUENCY_SCORE and MONETARY_SCORE'u as a single variable and saving it as RFM_SCORE 
 
-    ALTER TABLE RFM ADD RFM_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE) + CONVERT(VARCHAR, MONETARY_SCORE));
+      ALTER TABLE RFM ADD RFM_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE) + CONVERT(VARCHAR, MONETARY_SCORE));
 
     -- CHECK
 
-    SELECT * FROM RFM
+      SELECT * FROM RFM
 
  
 ###############################################################
@@ -249,8 +250,8 @@ SELECT * FROM RFM;
 
 -- About to Sleep sınıfının oluşturulması
     
-     UPDATE RFM SET SEGMENT ='about_to_sleep'
-     WHERE RECENCY_SCORE LIKE '[3]%' AND FREQUENCY_SCORE LIKE '[1-2]%'
+    UPDATE RFM SET SEGMENT ='about_to_sleep'
+    WHERE RECENCY_SCORE LIKE '[3]%' AND FREQUENCY_SCORE LIKE '[1-2]%'
 
 -- Creating  Need Attention Class
          
@@ -264,25 +265,27 @@ SELECT * FROM RFM;
    
 -- Creating Promising Class
          
-   UPDATE RFM SET SEGMENT ='promising'
-   WHERE RECENCY_SCORE LIKE '[4]%' AND FREQUENCY_SCORE LIKE '[1]%'
+    UPDATE RFM SET SEGMENT ='promising'
+    WHERE RECENCY_SCORE LIKE '[4]%' AND FREQUENCY_SCORE LIKE '[1]%'
 
 -- Creating  New Customers Class
          
-  UPDATE RFM SET SEGMENT ='new_customers'
-  WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[1]%'
+    UPDATE RFM SET SEGMENT ='new_customers'
+    WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[1]%'
 
 -- Creating  Potential Loyalist Class
          
-  UPDATE RFM SET SEGMENT ='potential_loyalists'
-  WHERE RECENCY_SCORE LIKE '[4-5]%' AND FREQUENCY_SCORE LIKE '[2-3]%'
+    UPDATE RFM SET SEGMENT ='potential_loyalists'
+    WHERE RECENCY_SCORE LIKE '[4-5]%' AND FREQUENCY_SCORE LIKE '[2-3]%'
 
 -- Creating  Champions Class
          
-  UPDATE RFM SET SEGMENT ='champions'
-  WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[4-5]%'
+    UPDATE RFM SET SEGMENT ='champions'
+    WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[4-5]%'
 
 
+    SELECT * FROM RFM --- RFM Table Final Version
+      
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #    +                                                              RFM TABLE                                                                                    +
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
