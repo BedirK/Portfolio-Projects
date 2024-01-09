@@ -96,7 +96,6 @@
                                                          
          iv.  Null value,
                                                          
-      
         SELECT * FROM flodb.dbo.flo WHERE master_id IS NULL;
         SELECT * FROM flodb.dbo.flo WHERE order_channel IS NULL;
         SELECT * FROM flodb.dbo.flo WHERE last_order_channel IS NULL;
@@ -125,11 +124,7 @@
           ALTER TABLE flo ADD customer_value_total AS (customer_value_total_ever_offline + customer_value_total_ever_online)
           SELECT * FROM flo
           
- -- 4. Examine the variable types. Change the type of variables that express date to date.
-
-         
-
--- 5. See the breakdown of the number of customers, average number of products purchased, and average spend across shopping channels.
+ -- 4. See the breakdown of the number of customers, average number of products purchased, and average spend across shopping channels.
           
           SELECT order_channel, 
           COUNT(master_id) AS COUNT_MASTER_ID, 
@@ -139,11 +134,11 @@
           GROUP BY order_channel
 
 
--- 6. Rank the top 10 customers with the highest revenue.
+-- 5. Rank the top 10 customers with the highest revenue.
 
          SELECT TOP 10 * FROM flo ORDER BY customer_value_total DESC
 
--- 7. List the top 10 customers with the most orders.
+-- 6. List the top 10 customers with the most orders.
 
         SELECT TOP 10 * FROM flo ORDER BY order_num_total DESC
 
@@ -156,7 +151,9 @@
 SELECT MAX(last_order_date) AS MAX_SON_ALISVERIS_TARIHI FROM flo;
 
 -- analysis_date = (2021,6,1)
--- customer_id, recency, freqcy ve monetary değerlerinin yer aldığı yeni bir rfm adında tablo oluşturunuz.
+
+-- customer_id, recency, frequency ve monetary değerlerinin yer aldığı yeni bir rfm adında tablo oluşturunuz.
+
 SELECT master_id AS CUSTOMER_ID,
        DATEDIFF(DAY, last_order_date, '20210601') AS RECENCY,
      order_num_total AS FREQUENCY,
@@ -179,58 +176,58 @@ SELECT * FROM RFM;
 
  -- Expressing and Creating RECENCY_SCORE
 
- UPDATE RFM SET RECENCY_SCORE = 
-(SELECT SCORE FROM
-(SELECT A.*,
+     UPDATE RFM SET RECENCY_SCORE = 
+    (SELECT SCORE FROM
+    (SELECT A.*,
         NTILE(5) OVER(ORDER BY Recency DESC) SCORE
-FROM RFM AS A
-) T 
-WHERE T.Customer_ID = RFM.Customer_ID
-);
+    FROM RFM AS A
+    ) T 
+    WHERE T.Customer_ID = RFM.Customer_ID
+    );
 
-SELECT * FROM RFM
+    SELECT * FROM RFM
 
 -- Expressing and Creating FREQUENCY_SCORE
  
-UPDATE RFM SET FREQUENCY_SCORE = 
-(SELECT SCORE FROM
-(SELECT A.*,
+    UPDATE RFM SET FREQUENCY_SCORE = 
+    (SELECT SCORE FROM
+    (SELECT A.*,
         NTILE(5) OVER(ORDER BY Frequency) AS SCORE
-FROM RFM AS A
-) T 
-WHERE T.Customer_ID = RFM.Customer_ID
-);
+    FROM RFM AS A
+    ) T 
+    WHERE T.Customer_ID = RFM.Customer_ID
+    );
 
-SELECT * FROM RFM
+    SELECT * FROM RFM
 
 -- Expressing and Creating MONETARY_SCORE 
  
-UPDATE RFM SET MONETARY_SCORE = 
-(SELECT SCORE FROM
-(SELECT A.*,
+    UPDATE RFM SET MONETARY_SCORE = 
+    (SELECT SCORE FROM
+    (SELECT A.*,
         NTILE(5) OVER(ORDER BY Monetary) AS SCORE
-FROM RFM AS A
-) T 
-WHERE T.Customer_ID = RFM.Customer_ID
-);
+    FROM RFM AS A
+    ) T 
+    WHERE T.Customer_ID = RFM.Customer_ID
+    )
 
-SELECT * FROM RFM -- CHECK
+    SELECT * FROM RFM -- CHECK
 
- -- ###### RF_SCORE and RFM_SCORE Creation ###### --
+  -- ###### RF_SCORE and RFM_SCORE Creation ###### --
 
--- #  Expressing RECENCY_SCORE and FREQUENCY_SCORE as a single variable and saving it as RF_SCORE
+  -- #  Expressing RECENCY_SCORE and FREQUENCY_SCORE as a single variable and saving it as RF_SCORE
 
-ALTER TABLE RFM ADD RF_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE));
+    ALTER TABLE RFM ADD RF_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE));
 
-SELECT * FROM RFM
+    SELECT * FROM RFM
 
--- # Expressing RECENCY_SCORE, FREQUENCY_SCORE and MONETARY_SCORE'u as a single variable and saving it as RFM_SCORE 
+   -- # Expressing RECENCY_SCORE, FREQUENCY_SCORE and MONETARY_SCORE'u as a single variable and saving it as RFM_SCORE 
 
-ALTER TABLE RFM ADD RFM_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE) + CONVERT(VARCHAR, MONETARY_SCORE));
+    ALTER TABLE RFM ADD RFM_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE) + CONVERT(VARCHAR, MONETARY_SCORE));
 
--- CHECK
+    -- CHECK
 
-SELECT * FROM RFM
+    SELECT * FROM RFM
 
  
 ###############################################################
