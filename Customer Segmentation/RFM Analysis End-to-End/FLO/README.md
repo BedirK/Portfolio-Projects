@@ -75,6 +75,6 @@ The dataset contains data collected from customers who made purchases in 2020 - 
    1. Examine the recency, frequency, and monetary averages of the segments.
    2. With the help of RFM analysis, find the customers in the relevant profile for 2 cases;
       
-        i. FLO includes a new women's shoe brand. The product prices of the brand it includes are above the general customer preferences. For this reason, customers in the profile who will be interested in the promotion of the brand and product sales are requested to be contacted privately. Those who shop from their loyal customers (champions, loyal_customers), on average over 250 TL and from the women category, are the customers to contact privately
+        i. FLO is incorporating a new women's shoe brand. The product prices of the brand are above the general customer preferences. For this reason, it is requested to contact customers who will be interested in the promotion of the brand and product sales. The definition of this profile is as follows; loyal customers (champions, loyal_customers) with an average of over 250 TL and shopping in the women's category.
       
-        ii. Up to 40% discount is planned for Men's and Children's products. It is aimed to specifically target customers who are good in the past, but who have not shopped for a long time, who are interested in the categories related to this discount, who should not be lost, who are asleep, and new customers.
+        ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers. 
