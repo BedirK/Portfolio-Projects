@@ -3,7 +3,7 @@
 
 ![RFM Metric](https://github.com/BedirK/Portfolio-Projects/assets/103532330/f0039e47-bd15-458a-bb5d-2c22c83f6984)
 
-This is the RFM Real Life Case Study of [Miuul](https://miuul.com/) Data Analytics Bootcamp
+This project is the RFM case study with realized data; from Miuul [Data Analytics Bootcamp](https://miuul.com/data-analyst-bootcamp) 
 
 ## About FLO
 -------------------------------
