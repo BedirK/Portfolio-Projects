@@ -4,7 +4,7 @@
 
 
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    +                                                               BEFORE                                                                                                                                                                                                                                                                       +
+#    +                                                               FLO TABLE                                                                                                                                                                                                                                                                      +
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #    +                                                                                                                                                                                                                                                                                                                                               +
 #    +                  master_id                   order_channel    last_order_channel   first_order_date   last_order_date   last_order_date_online   last_order_date_offline   order_num_total_ever_online   order_num_total_ever_offline   customer_value_total_ever_offline   customer_value_total_ever_online    interested_in_categories_12   +
@@ -15,20 +15,6 @@
 #    +   4  d6ea1074-f1f5-11e9-9346-000d3a38a36f       Desktop             Desktop           2019-08-03         2021-03-07           2021-03-07               2019-08-03                      1.000                        1.000                             49.990                           159.990                                  [AKTIFSPOR]   +
 #    +                                                                                                                                                                                                                                                                                                                                               +
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-#    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    +                                                               AFTER                                                                                     +
-#    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#    +                                                                                                                                                                     +
-#    +                                    Customer_ID  Recency  Frequency  Monetary Recency_Score Frequency_Score Monetary_Score RF_Score RFM_Score              SEGMENT   +
-#    +    0      5d1c466a-9cfd-11e9-9897-000d3a38a36f       32     202.00  45905.10             5               5              5       55       555            champions   +
-#    +    1      d5ef8058-a5c6-11e9-a2fc-000d3a38a36f       98      68.00  36818.29             3               5              5       35       355      loyal_customers   +
-#    +    2      73fd19aa-9e37-11e9-9897-000d3a38a36f       14      82.00  33918.10             5               5              5       55       555            champions   +
-#    +    3      7137a5c0-7aad-11ea-8f20-000d3a38a36f       49      11.00  31227.41             4               5              5       45       455      loyal_customers   +
-#    +    4      47a642fe-975b-11eb-8c2a-000d3a38a36f       35       4.00  20706.34             4               3              5       43       435  potential_loyalists   +
-#    +                                                                                                                                                                     +
-#    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
@@ -72,6 +58,9 @@
 ###############################################################
 
   -- 1. Access the FLO data from the SQL database and Read.
+                                                          
+        SELECT * FROM flodb.dbo.flo
+                                                          
   -- 2. In the dataset:
                                                          
          i.   The first 10 observations,
@@ -146,13 +135,13 @@
 # TASK 2: Calculating RFM Metrics
 ###############################################################
 
-          -- # Veri setindeki en son alışverişin yapıldığı tarihten 2 gün sonrasını analiz tarihi olarak alınacaktır.
--- 2021-05-30 max tarihtir.
-SELECT MAX(last_order_date) AS MAX_SON_ALISVERIS_TARIHI FROM flo;
+   -- # The analysis date will be two(2) days after the date of the customer's last purchase.
+     
+SELECT MAX(last_order_date) AS MAX_SON_ALISVERIS_TARIHI FROM flo; -- "2021-05-30" date of the customer's most recent purchase
 
--- analysis_date = (2021,6,1)
+-- Analysis_date = (2021-06-01)
 
--- customer_id, recency, frequency ve monetary değerlerinin yer aldığı yeni bir rfm adında tablo oluşturunuz.
+-- Creating RFM Table including customer_id, recency, frequency ve monetary values
 
 SELECT master_id AS CUSTOMER_ID,
        DATEDIFF(DAY, last_order_date, '20210601') AS RECENCY,
@@ -165,7 +154,8 @@ INTO RFM
 FROM flo
 ;
 
--- Recency, Frequency ve Monetary değerlerinin incelenmesi
+-- Check and Read Recency, Frequency ve Monetary values from RFM Table
+
 SELECT * FROM RFM;
 
 ###############################################################
@@ -183,7 +173,7 @@ SELECT * FROM RFM;
     FROM RFM AS A
     ) T 
     WHERE T.Customer_ID = RFM.Customer_ID
-    );
+    )
 
     SELECT * FROM RFM
 
@@ -292,7 +282,20 @@ SELECT * FROM RFM;
   UPDATE RFM SET SEGMENT ='champions'
   WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[4-5]%'
 
- SELECT RFM_SCORE, SEGMENT FROM RFM;
+
+#    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#    +                                                              RFM TABLE                                                                                    +
+#    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#    +                                                                                                                                                                     +
+#    +                                    Customer_ID  Recency  Frequency  Monetary Recency_Score Frequency_Score Monetary_Score RF_Score RFM_Score              SEGMENT   +
+#    +    0      5d1c466a-9cfd-11e9-9897-000d3a38a36f       32     202.00  45905.10             5               5              5       55       555            champions   +
+#    +    1      d5ef8058-a5c6-11e9-a2fc-000d3a38a36f       98      68.00  36818.29             3               5              5       35       355      loyal_customers   +
+#    +    2      73fd19aa-9e37-11e9-9897-000d3a38a36f       14      82.00  33918.10             5               5              5       55       555            champions   +
+#    +    3      7137a5c0-7aad-11ea-8f20-000d3a38a36f       49      11.00  31227.41             4               5              5       45       455      loyal_customers   +
+#    +    4      47a642fe-975b-11eb-8c2a-000d3a38a36f       35       4.00  20706.34             4               3              5       43       435  potential_loyalists   +
+#    +                                                                                                                                                                     +
+#    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 ###############################################################
 # TASK 5: Action Time !
@@ -322,7 +325,6 @@ SELECT * FROM RFM;
      AND (B.customer_value_total / B.order_num_total) > 250
      AND B.interested_in_categories_12 LIKE '%KADIN%'
      )
- 
  
  ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers.
 
