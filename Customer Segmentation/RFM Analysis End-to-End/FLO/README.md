@@ -19,9 +19,9 @@ To achieve this, customer behaviors will be identified, and distinct groups will
 -------------------------------
 #### 19.945 observations, 13 different variables
 
-![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/41aa3662-b9a5-4bc9-8c23-a6f3472efadb)
-
 The dataset contains data collected from customers who made purchases in 2020 - 2021 using both online and offline channels.
+
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/41aa3662-b9a5-4bc9-8c23-a6f3472efadb)
 
 - master_id: A unique identification number assigned to each customer.
   
@@ -70,7 +70,7 @@ The dataset contains data collected from customers who made purchases in 2020 - 
   7. List the top 10 customers with the most orders.
 ## TASK 2: Calculating RFM Metrics
 ## TASK 3: Calculating RF and RFM Scores
-## TASK 4: Segment Definition of RF Scores
+## TASK 4: Segment Definitions
 ## TASK 5: Action Time!
    1. Examine the recency, frequency, and monetary averages of the segments.
    2. With the help of RFM analysis, find the customers in the relevant profile for 2 cases;
