@@ -31,19 +31,7 @@
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 */
 
-/*    
-"""
-# 1. Business Problem
-# 2. Data Understanding
-# 3. Data Preparation
-# 4. Preparation of RFM Data Structure
-# 5. Calculating RFM Metrics
-# 6. Calculating RFM Scores
-# 7. Creating & Analysing RFM Segments
-"""
-*/
 
-/*
 ###############################################################
 # Customer Segmentation with RFM
 ###############################################################
@@ -79,7 +67,6 @@
 # TASKS
 ###############################################################
 
-/*
 ###############################################################
 ## TASK 1: Data Understanding and Preparation
 ###############################################################
@@ -97,21 +84,31 @@
   6. Rank the top 10 customers with the highest revenue.
   7. List the top 10 customers with the most orders.
 
-# GÖREV 2: RFM Metriklerinin Hesaplanması
 
-# GÖREV 3: RF ve RFM Skorlarının Hesaplanması
+###############################################################
+# TASK 2: Calculating RFM Metrics
+###############################################################
 
-# GÖREV 4: RF Skorlarının Segment Olarak Tanımlanması
 
-# GÖREV 5: Aksiyon zamanı!
-           # 1. Segmentlerin recency, frequnecy ve monetary ortalamalarını inceleyiniz.
-           # 2. RFM analizi yardımı ile 2 case için ilgili profildeki müşterileri bulunuz.
-                   # a. FLO bünyesine yeni bir kadın ayakkabı markası dahil ediyor. Dahil ettiği markanın ürün fiyatları genel müşteri tercihlerinin üstünde. Bu nedenle markanın
-                   # tanıtımı ve ürün satışları için ilgilenecek profildeki müşterilerle özel olarak iletişime geçeilmek isteniliyor. Sadık müşterilerinden(champions,loyal_customers),
-                   # ortalama 250 TL üzeri ve kadın kategorisinden alışveriş yapan kişiler özel olarak iletişim kuralacak müşteriler. Bu müşterilerin id numaralarını getiriniz.
+###############################################################
+# TASK 3: Calculating RF and RFM Scores
+###############################################################
 
-                   # b. Erkek ve Çoçuk ürünlerinde %40'a yakın indirim planlanmaktadır. Bu indirimle ilgili kategorilerle ilgilenen geçmişte iyi müşteri olan ama uzun süredir
-                   # alışveriş yapmayan kaybedilmemesi gereken müşteriler, uykuda olanlar ve yeni gelen müşteriler özel olarak hedef alınmak isteniliyor. Uygun profildeki müşterilerin id'lerini getiriniz.
+
+###############################################################
+# TASK 4: Segment Definitions
+###############################################################
+
+
+###############################################################
+# TASK 5: Action Time !
+###############################################################
+     1. Examine the recency, frequency, and monetary averages of the segments.
+     2. With the help of RFM analysis, find the customers in the relevant profile for 2 cases;
+
+        i. FLO is incorporating a new women's shoe brand. The product prices of the brand are above the general customer preferences. For this reason, it is requested to contact customers who will be interested in the promotion of the brand and product sales. The definition of this profile is as follows; loyal customers (champions, loyal_customers) with an average of over 250 TL and shopping in the women's category.
+        ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers.
+
 */
 /*
 ###############################################################
