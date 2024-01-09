@@ -1,6 +1,6 @@
-                                                                  ####################################
-                                                        # Customer Segmentation - RFM Analysis using FLO's Dataset #
-                                                                  ####################################
+###########################################################
+# Customer Segmentation - RFM Analysis using FLO's Dataset
+###########################################################
 
 
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -329,7 +329,7 @@
      AND B.interested_in_categories_12 LIKE '%KADIN%'
      )
  
- ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers.
+       ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers.
 
 
      (SELECT A.CUSTOMER_ID, B.interested_in_categories_12  
