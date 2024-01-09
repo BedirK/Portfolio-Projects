@@ -1,4 +1,4 @@
- /*                                                               ####################################
+                                                                  ####################################
                                                         # Customer Segmentation - RFM Analysis using FLO's Dataset #
                                                                   ####################################
 
@@ -29,7 +29,7 @@
 #    +    4      47a642fe-975b-11eb-8c2a-000d3a38a36f       35       4.00  20706.34             4               3              5       43       435  potential_loyalists   +
 #    +                                                                                                                                                                     +
 #    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-*/
+
 
 
 ###############################################################
@@ -71,149 +71,87 @@
 ## TASK 1: Data Understanding and Preparation
 ###############################################################
 
-   1. Access the FLO data from the SQL database and Read.
-   2. In the dataset:
+  -- 1. Access the FLO data from the SQL database and Read.
+  -- 2. In the dataset:
+                                                         
          i.   The first 10 observations,
-         ii.  Variable names,
-         iii. Descriptive statistics,
-         iv.  Null value,
-         v.   Variable types, review.
-  3. Create new variables for each customer's total purchases and spending.
-  4. Examine the variable types. Change the type of variables that express date to date.
-  5. See the breakdown of the number of customers, average number of products purchased, and average spend across shopping channels.
-  6. Rank the top 10 customers with the highest revenue.
-  7. List the top 10 customers with the most orders.
 
+        SELECT TOP 10 * FROM flodb.dbo.flo
+
+        SELECT  * FROM flodb.INFORMATION_SCHEMA.COLUMNS
+
+         ii.  Variable names,
+      
+        SELECT COLUMN_NAME AS VARIABLE_NAMES
+        FROM flodb.INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_NAME = 'FLO'
+                                                         
+         iii. Descriptive statistics,
+                                                       
+        SELECT COUNT(*) AS NUMBER_OF_ROWS , 
+        (SELECT COUNT(COLUMN_NAME) AS VARIABLE_NAMES
+        FROM flodb.INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_NAME = 'FLO') AS NUMBER_OF_COLUMNS
+        FROM flodb.dbo.flo 
+                                                         
+         iv.  Null value,
+                                                         
+      
+        SELECT * FROM flodb.dbo.flo WHERE master_id IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE order_channel IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE last_order_channel IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE first_order_date IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE last_order_date IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE last_order_date_online IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE last_order_date_offline IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE order_num_total_ever_online IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE order_num_total_ever_offline IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE customer_value_total_ever_offline IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE customer_value_total_ever_online IS NULL;
+        SELECT * FROM flodb.dbo.flo WHERE interested_in_categories_12 IS NULL;
+
+
+         v.   Variable types, review.
+          
+          SELECT COLUMN_NAME, DATA_TYPE 
+          FROM flodb.INFORMATION_SCHEMA.COLUMNS
+          WHERE TABLE_NAME = 'FLO'
+          
+  -- 3. Create new variables for each customer's total purchases and spending.
+
+          ALTER TABLE flo ADD order_num_total AS (order_num_total_ever_online + order_num_total_ever_offline)
+          SELECT * FROM flo
+
+          ALTER TABLE flo ADD customer_value_total AS (customer_value_total_ever_offline + customer_value_total_ever_online)
+          SELECT * FROM flo
+          
+ -- 4. Examine the variable types. Change the type of variables that express date to date.
+
+         
+
+-- 5. See the breakdown of the number of customers, average number of products purchased, and average spend across shopping channels.
+          
+          SELECT order_channel, 
+          COUNT(master_id) AS COUNT_MASTER_ID, 
+          ROUND(AVG(order_num_total), 0) AS AVG_ORDER_NUM_TOTAL, 
+          ROUND(AVG(customer_value_total), 0) AS AVG_CUSTOMER_VALUE_TOTAL 
+          FROM flo
+          GROUP BY order_channel
+
+
+-- 6. Rank the top 10 customers with the highest revenue.
+
+         SELECT TOP 10 * FROM flo ORDER BY customer_value_total DESC
+
+-- 7. List the top 10 customers with the most orders.
+
+        SELECT TOP 10 * FROM flo ORDER BY order_num_total DESC
 
 ###############################################################
 # TASK 2: Calculating RFM Metrics
 ###############################################################
 
-
-###############################################################
-# TASK 3: Calculating RF and RFM Scores
-###############################################################
-
-
-###############################################################
-# TASK 4: Segment Definitions
-###############################################################
-
-
-###############################################################
-# TASK 5: Action Time !
-###############################################################
-     1. Examine the recency, frequency, and monetary averages of the segments.
-     2. With the help of RFM analysis, find the customers in the relevant profile for 2 cases;
-
-        i. FLO is incorporating a new women's shoe brand. The product prices of the brand are above the general customer preferences. For this reason, it is requested to contact customers who will be interested in the promotion of the brand and product sales. The definition of this profile is as follows; loyal customers (champions, loyal_customers) with an average of over 250 TL and shopping in the women's category.
-        ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers.
-
-*/
-/*
-###############################################################
-# GÖREV 1: Veriyi  Hazırlama ve Anlama (Data Understanding)
-###############################################################
-#Veri setinde;
-        # a. ılk 10 gözlem,
-        # b. Değişken isimleri,
-        # c. Boyut,
-        # d. Boş değer,
-        # e. Değişken tipleri, incelemesi yapınız.
-
-*/
-
-
-
--- a. Ilk 10 gözlem
-SELECT TOP 10 * FROM flodb.dbo.flo
-
-SELECT  * FROM flodb.INFORMATION_SCHEMA.COLUMNS
-
-
--- b. Değişken isimleri
-SELECT COLUMN_NAME AS DEGISKEN_ISIMLERI
-FROM flodb.INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'FLO'
-;
-
-
---c. Boyut
-SELECT COUNT(*) AS SATIR_SAYISI , 
-       (SELECT COUNT(COLUMN_NAME) AS DEGISKEN_ISIMLERI
-    FROM flodb.INFORMATION_SCHEMA.COLUMNS
-    WHERE TABLE_NAME = 'FLO') AS KOLON_SAYISI
-FROM flodb.dbo.flo 
-;
-
--- d. Boş değer
-SELECT * FROM flodb.dbo.flo WHERE master_id IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE order_channel IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE last_order_channel IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE first_order_date IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE last_order_date IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE last_order_date_online IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE last_order_date_offline IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE order_num_total_ever_online IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE order_num_total_ever_offline IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE customer_value_total_ever_offline IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE customer_value_total_ever_online IS NULL;
-SELECT * FROM flodb.dbo.flo WHERE interested_in_categories_12 IS NULL;
---SELECT * FROM flodb.dbo.flo WHERE store_type IS NULL;
-
-
--- e. Değişken tipleri incelemesi
-
-SELECT COLUMN_NAME, DATA_TYPE 
-FROM flodb.INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = 'FLO'
-;
-
--- e. Kısıtlı Databaseden, Playground da tablo olusturma
-
-SELECT * FROM flodb.dbo.flo
-
-SELECT *
-INTO flo
-FROM flodb.dbo.flo
-
--- WHERE 1 = 0;  -- Bu koşul hiçbir satırın seçilmemesini sağlar, sadece yapısı kopyalanır
-
-SELECT * FROM flo
-
--- 3. Omnichannel müşterilerin hem online'dan hemde offline platformlardan alışveriş yaptığını ifade etmektedir.
--- Herbir müşterinin toplam alışveriş sayısı ve harcaması için yeni değişkenler oluşturun.
-
-ALTER TABLE flo ADD order_num_total AS (order_num_total_ever_online + order_num_total_ever_offline);
-SELECT * FROM flo
-
-ALTER TABLE flo ADD customer_value_total AS (customer_value_total_ever_offline + customer_value_total_ever_online);
-SELECT * FROM flo
-
-
--- 4. Alışveriş kanallarındaki müşteri sayısının, ortalama alınan ürün sayısının ve ortalama harcamaların dağılımına bakınız.
-
-SELECT order_channel, 
-       COUNT(master_id) AS COUNT_MASTER_ID, 
-     ROUND(AVG(order_num_total), 0) AS AVG_ORDER_NUM_TOTAL, 
-     ROUND(AVG(customer_value_total), 0) AS AVG_CUSTOMER_VALUE_TOTAL 
-FROM flo
-GROUP BY order_channel;
-
-
--- # 6. En fazla kazancı getiren ilk 10 müşteriyi sıralayınız.
-SELECT TOP 10 * FROM flo ORDER BY customer_value_total DESC;
-
--- # 7. En fazla siparişi veren ilk 10 müşteriyi sıralayınız.
-SELECT TOP 10 * FROM flo ORDER BY order_num_total DESC;
-
-/*
-###############################################################
-# GÖREV 2: RFM Metriklerinin Hesaplanması
-###############################################################
-*/
-
--- # Veri setindeki en son alışverişin yapıldığı tarihten 2 gün sonrasını analiz tarihi olarak alınacaktır.
+          -- # Veri setindeki en son alışverişin yapıldığı tarihten 2 gün sonrasını analiz tarihi olarak alınacaktır.
 -- 2021-05-30 max tarihtir.
 SELECT MAX(last_order_date) AS MAX_SON_ALISVERIS_TARIHI FROM flo;
 
@@ -233,16 +171,15 @@ FROM flo
 -- Recency, Frequency ve Monetary değerlerinin incelenmesi
 SELECT * FROM RFM;
 
-/*
 ###############################################################
-# GÖREV 3: RF ve RFM Skorlarının Hesaplanması (Calculating RF and RFM Scores)
+# TASK 3: Calculating RF and RFM Scores
 ###############################################################
-#  Recency, Frequency ve Monetary metriklerinin 1-5 arasında skorlara çevrilmesi ve
-# Bu skorları recency_score, frequency_score ve monetary_score olarak kaydedilmesi
-*/
+--# Converting Recency, Frequency, and Monetary metrics to scores between 1-5
+--# recording these scores as recency_score, frequency_score, and monetary_score
 
--- RECENCY_SCORE Oluşturulması
-UPDATE RFM SET RECENCY_SCORE = 
+ -- Expressing and Creating RECENCY_SCORE
+
+ UPDATE RFM SET RECENCY_SCORE = 
 (SELECT SCORE FROM
 (SELECT A.*,
         NTILE(5) OVER(ORDER BY Recency DESC) SCORE
@@ -253,7 +190,8 @@ WHERE T.Customer_ID = RFM.Customer_ID
 
 SELECT * FROM RFM
 
--- FREQUENCY_SCORE Oluşturulması
+-- Expressing and Creating FREQUENCY_SCORE
+ 
 UPDATE RFM SET FREQUENCY_SCORE = 
 (SELECT SCORE FROM
 (SELECT A.*,
@@ -265,7 +203,8 @@ WHERE T.Customer_ID = RFM.Customer_ID
 
 SELECT * FROM RFM
 
--- MONETARY_SCORE Oluşturulması
+-- Expressing and Creating MONETARY_SCORE 
+ 
 UPDATE RFM SET MONETARY_SCORE = 
 (SELECT SCORE FROM
 (SELECT A.*,
@@ -275,125 +214,128 @@ FROM RFM AS A
 WHERE T.Customer_ID = RFM.Customer_ID
 );
 
+SELECT * FROM RFM -- CHECK
 
+ -- ###### RF_SCORE and RFM_SCORE Creation ###### --
 
--- Oluşan skorların incelenmesi
-SELECT * FROM RFM;
+-- #  Expressing RECENCY_SCORE and FREQUENCY_SCORE as a single variable and saving it as RF_SCORE
 
--- # RECENCY_SCORE ve FREQUENCY_SCORE’u tek bir değişken olarak ifade edilmesi ve RF_SCORE olarak kaydedilmesi
 ALTER TABLE RFM ADD RF_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE));
 
-SELECT * FROM RFM;
+SELECT * FROM RFM
 
--- # RECENCY_SCORE ve FREQUENCY_SCORE ve MONETARY_SCORE'u tek bir değişken olarak ifade edilmesi ve RFM_SCORE olarak kaydedilmesi
+-- # Expressing RECENCY_SCORE, FREQUENCY_SCORE and MONETARY_SCORE'u as a single variable and saving it as RFM_SCORE 
+
 ALTER TABLE RFM ADD RFM_SCORE AS (CONVERT(VARCHAR,RECENCY_SCORE) + CONVERT(VARCHAR,FREQUENCY_SCORE) + CONVERT(VARCHAR, MONETARY_SCORE));
 
+-- CHECK
 
--- Son duruma göz atılması
-SELECT * FROM RFM;
+SELECT * FROM RFM
 
-/*
+ 
 ###############################################################
-# GÖREV 4: RF Skorlarının Segment Olarak Tanımlanması
+# TASK 4: Segment Definitions
 ###############################################################
-# Oluşturulan RFM skorların daha açıklanabilir olması için segment tanımlama ve RF_SCORE'u segmentlere çevirme
-*/
 
---SEGMENT adında yeni bir kolon oluşturma
-ALTER TABLE RFM ADD SEGMENT VARCHAR(50);
+ -- # Segment definition, and converting RF_SCORE so that the generated RFM scores can be explained more clearly
 
--- Hibernating sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='hibernating'
-WHERE RECENCY_SCORE LIKE '[1-2]%' AND FREQUENCY_SCORE LIKE '[1-2]%'
+ -- Creating a new column as SEGMENT 
 
-SELECT * FROM RFM;
+    ALTER TABLE RFM ADD SEGMENT VARCHAR(50);
+ 
+-- Creating Hibernating Class
+         
+    UPDATE RFM SET SEGMENT ='hibernating'
+    WHERE RECENCY_SCORE LIKE '[1-2]%' AND FREQUENCY_SCORE LIKE '[1-2]%'
 
--- at Risk sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='at_Risk'
-WHERE RECENCY_SCORE LIKE '[1-2]%' AND FREQUENCY_SCORE LIKE '[3-4]%'
+    SELECT * FROM RFM;
 
--- Can't Loose sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='cant_loose'
-WHERE RECENCY_SCORE LIKE '[1-2]%' AND FREQUENCY_SCORE LIKE '[5]%'
+-- Creating  at Risk Class
+         
+    UPDATE RFM SET SEGMENT ='at_Risk'
+    WHERE RECENCY_SCORE LIKE '[1-2]%' AND FREQUENCY_SCORE LIKE '[3-4]%'
+
+-- Creating  About to Sleep Class
+         
+    UPDATE RFM SET SEGMENT ='cant_loose'
+    WHERE RECENCY_SCORE LIKE '[1-2]%' AND FREQUENCY_SCORE LIKE '[5]%'
 
 -- About to Sleep sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='about_to_sleep'
-WHERE RECENCY_SCORE LIKE '[3]%' AND FREQUENCY_SCORE LIKE '[1-2]%'
+    
+     UPDATE RFM SET SEGMENT ='about_to_sleep'
+     WHERE RECENCY_SCORE LIKE '[3]%' AND FREQUENCY_SCORE LIKE '[1-2]%'
 
--- Need Attention sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='need_attention'
-WHERE RECENCY_SCORE LIKE '[3]%' AND FREQUENCY_SCORE LIKE '[3]%'
+-- Creating  Need Attention Class
+         
+    UPDATE RFM SET SEGMENT ='need_attention'
+    WHERE RECENCY_SCORE LIKE '[3]%' AND FREQUENCY_SCORE LIKE '[3]%'
 
--- Loyal Customers sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='loyal_customers'
-WHERE RECENCY_SCORE LIKE '[3-4]%' AND FREQUENCY_SCORE LIKE '[4-5]%'
+-- Creating  Loyal Customers Class
+         
+    UPDATE RFM SET SEGMENT ='loyal_customers'
+    WHERE RECENCY_SCORE LIKE '[3-4]%' AND FREQUENCY_SCORE LIKE '[4-5]%'
+   
+-- Creating Promising Class
+         
+   UPDATE RFM SET SEGMENT ='promising'
+   WHERE RECENCY_SCORE LIKE '[4]%' AND FREQUENCY_SCORE LIKE '[1]%'
 
--- Promising sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='promising'
-WHERE RECENCY_SCORE LIKE '[4]%' AND FREQUENCY_SCORE LIKE '[1]%'
+-- Creating  New Customers Class
+         
+  UPDATE RFM SET SEGMENT ='new_customers'
+  WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[1]%'
 
--- New Customers sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='new_customers'
-WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[1]%'
+-- Creating  Potential Loyalist Class
+         
+  UPDATE RFM SET SEGMENT ='potential_loyalists'
+  WHERE RECENCY_SCORE LIKE '[4-5]%' AND FREQUENCY_SCORE LIKE '[2-3]%'
 
--- Potential Loyalist sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='potential_loyalists'
-WHERE RECENCY_SCORE LIKE '[4-5]%' AND FREQUENCY_SCORE LIKE '[2-3]%'
+-- Creating  Champions Class
+         
+  UPDATE RFM SET SEGMENT ='champions'
+  WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[4-5]%'
 
--- Champions sınıfının oluşturulması
-UPDATE RFM SET SEGMENT ='champions'
-WHERE RECENCY_SCORE LIKE '[5]%' AND FREQUENCY_SCORE LIKE '[4-5]%'
+ SELECT RFM_SCORE, SEGMENT FROM RFM;
 
-SELECT RFM_SCORE, SEGMENT FROM RFM;
-
-/*
 ###############################################################
-# GÖREV 5: Aksiyon zamanı!
+# TASK 5: Action Time !
 ###############################################################
-# 1. Segmentlerin recency, frequnecy ve monetary ortalamalarını inceleyiniz.
-*/
+ 
+    -- 1. Examine the recency, frequency, and monetary averages of the segments.
 
-SELECT SEGMENT,
-       COUNT(RECENCY) AS COUNT_RECENCY,
-     AVG(RECENCY) AS AVG_RECENCY,
-     COUNT(FREQUENCY) AS COUNT_FREQUENCY,
-     ROUND(AVG(FREQUENCY),3) AS AVG_FREQUENCY,
-     COUNT(MONETARY) AS COUNT_MONETARY,
-     ROUND(AVG(MONETARY),3) AS AVG_MONETARY
-FROM RFM
-GROUP BY SEGMENT
-;
+      SELECT SEGMENT,
+        COUNT(RECENCY) AS COUNT_RECENCY,
+        AVG(RECENCY) AS AVG_RECENCY,
+        COUNT(FREQUENCY) AS COUNT_FREQUENCY,
+        ROUND(AVG(FREQUENCY),3) AS AVG_FREQUENCY,
+        COUNT(MONETARY) AS COUNT_MONETARY,
+        ROUND(AVG(MONETARY),3) AS AVG_MONETARY
+     FROM RFM
+     GROUP BY SEGMENT
+ 
+    -- 2. With the help of RFM analysis, find the customers in the relevant profile for 2 cases;
 
-/*
-# 2. RFM analizi yardımı ile 2 case için ilgili profildeki müşterileri bulunuz.
+        i. FLO is incorporating a new women's shoe brand. The product prices of the brand are above the general customer preferences. For this reason, it is requested to contact customers who will be interested in the promotion of the brand and product sales. The definition of this profile is as follows; loyal customers (champions, loyal_customers) with an average of over 250 TL and shopping in the women's category.
 
-# a. FLO bünyesine yeni bir kadın ayakkabı markası dahil ediyor. Dahil ettiği markanın ürün fiyatları genel müşteri tercihlerinin üstünde. Bu nedenle markanın
-# tanıtımı ve ürün satışları için ilgilenecek profildeki müşterilerle özel olarak iletişime geçilmek isteniliyor. Bu müşterilerin sadık, ortalama 250 TL üzeri ve
-# kadın kategorisinden alışveriş yapan kişiler olması planlandı. Müşterilerin id numaralarını getiriniz.
-
-*/
-
-(SELECT A.CUSTOMER_ID, B.interested_in_categories_12  
-FROM RFM AS A,
-     flo AS B 
-WHERE  A.CUSTOMER_ID = B.master_id
-AND A.SEGMENT IN ('champions', 'loyal_customers')
-AND (B.customer_value_total / B.order_num_total) > 250
-AND B.interested_in_categories_12 LIKE '%KADIN%'
-)
-;
+     (SELECT A.CUSTOMER_ID, B.interested_in_categories_12  
+     FROM RFM AS A,
+          flo AS B 
+     WHERE  A.CUSTOMER_ID = B.master_id
+     AND A.SEGMENT IN ('champions', 'loyal_customers')
+     AND (B.customer_value_total / B.order_num_total) > 250
+     AND B.interested_in_categories_12 LIKE '%KADIN%'
+     )
+ 
+ 
+ ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers.
 
 
-/*
-# b. Erkek ve Çoçuk ürünlerinde %40'a yakın indirim planlanmaktadır. Bu indirimle ilgili kategorilerle ilgilenen geçmişte iyi müşterilerden olan ama uzun süredir
-# alışveriş yapmayan ve yeni gelen müşteriler özel olarak hedef alınmak isteniliyor. Uygun profildeki müşterilerin id'lerini getiriniz.
-*/
+     (SELECT A.CUSTOMER_ID, B.interested_in_categories_12  
+     FROM RFM AS A,
+          flo AS B 
+     WHERE  A.CUSTOMER_ID = B.master_id
+     AND A.SEGMENT IN ('cant_loose', 'hibernating', 'new_customers')
+     AND B.interested_in_categories_12 LIKE '%ERKEK%' OR B.interested_in_categories_12 LIKE '%COCUK%'
+     )
 
-(SELECT A.CUSTOMER_ID, B.interested_in_categories_12  
-FROM RFM AS A,
-     flo AS B 
-WHERE  A.CUSTOMER_ID = B.master_id
-AND A.SEGMENT IN ('cant_loose', 'hibernating', 'new_customers')
-AND B.interested_in_categories_12 LIKE '%ERKEK%' OR B.interested_in_categories_12 LIKE '%COCUK%'
-)
-;
+
