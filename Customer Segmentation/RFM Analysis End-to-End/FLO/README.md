@@ -64,10 +64,9 @@ The dataset contains data collected from customers who made purchases in 2020 - 
       
          v.   Variable types, review.
   3. Create new variables for each customer's total purchases and spending.
-  4. Examine the variable types. Change the type of variables that express date to date.
-  5. See the breakdown of the number of customers, average number of products purchased, and average spend across shopping channels.
-  6. Rank the top 10 customers with the highest revenue.
-  7. List the top 10 customers with the most orders.
+  4. See the breakdown of the number of customers, average number of products purchased, and average spend across shopping channels.
+  5. Rank the top 10 customers with the highest revenue.
+  6. List the top 10 customers with the most orders.
 ## TASK 2: Calculating RFM Metrics
 ## TASK 3: Calculating RF and RFM Scores
 ## TASK 4: Segment Definitions
