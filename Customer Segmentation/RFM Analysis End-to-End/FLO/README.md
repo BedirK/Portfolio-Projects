@@ -79,4 +79,4 @@ The dataset contains data collected from customers who made purchases in 2020 - 
       
         ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good in the past but have not been shopping for a long time, as well as new customers.
 ## TASK 6: Creating RFM Dashboard
- 1. Access RFM data from the SQL database and make a connection between PowerBI
+ 1. Access RFM table from SQL Server and create a data connection between PowerBI
