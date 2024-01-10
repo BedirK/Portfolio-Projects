@@ -77,4 +77,6 @@ The dataset contains data collected from customers who made purchases in 2020 - 
       
         i. FLO is incorporating a new women's shoe brand. The product prices of the brand are above the general customer preferences. For this reason, it is requested to contact customers who will be interested in the promotion of the brand and product sales. The definition of this profile is as follows; loyal customers (champions, loyal_customers) with an average of over 250 TL and shopping in the women's category.
       
-        ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good customers in the past, but have not been shopping for a long time, as well as new customers. 
+        ii. Discounts of up to 40% are planned for men's and children's products. This discount is aimed at customers who have been good in the past but have not been shopping for a long time, as well as new customers.
+## TASK 6: Creating RFM Dashboard
+ 1. Access RFM data from the SQL database and make a connection between PowerBI
