@@ -339,5 +339,7 @@
      AND A.SEGMENT IN ('cant_loose', 'hibernating', 'new_customers')
      AND B.interested_in_categories_12 LIKE '%ERKEK%' OR B.interested_in_categories_12 LIKE '%COCUK%'
      )
-
-
+###############################################################
+# TASK 6: Creating RFM Dashboard
+###############################################################      
+-- 1. Get RFM data table from SQL Server and create data connection between PowerBI
