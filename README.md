@@ -8,7 +8,7 @@ Data Analytics Portfolio Projects
 
 | 📚 Project | Description | 🛠️ Tools |
 |------------|------------------|----------------|
-| **01 - Customer Segmentation - RFM Analysis** | The dataset includes data collected from customers who made purchases through FLO's online and offline channels in 2020 - 2021. The plan is to categorize the customer base and develop marketing strategies tailored to each segment. To do this, FLO will identify customer behaviors and create distinct groups based on these behavioral clusters.  | **MSSQL, PowerBI** |
+| **01 - Customer Segmentation - RFM Analysis** | The dataset includes data collected from customers who made purchases through FLO's online and offline channels in 2020 - 2021. The plan is to categorize the customer base and develop marketing strategies tailored to each segment. To do this, FLO will identify customer behaviors and create distinct groups based on these behavioral clusters.  | **MS SQL, PowerBI** |
 | **02 - Retail Analysis** | This dataset was obtained using sales data from two retail chains based in Australia, with data spanning from January 2016 to July 2017. The "Summary Dashboard" gives an overall picture of the business units and how they're performing. | **Excel, PowerBI**|
 
 
