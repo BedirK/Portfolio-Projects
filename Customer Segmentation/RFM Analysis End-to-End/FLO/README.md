@@ -21,31 +21,31 @@ To achieve this, customer behaviors will be identified, and distinct groups will
 
 The dataset contains data collected from customers who made purchases in 2020 - 2021 using both online and offline channels.
 
-![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/41aa3662-b9a5-4bc9-8c23-a6f3472efadb)
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/36f4bc90-71c3-4674-a8fb-d24696d19f22)
 
-- master_id: A unique identification number assigned to each customer.
+- **master_id**: A unique identification number assigned to each customer.
   
-- order_channel: Indicates the shopping platform used for purchase (Android, iOS, Desktop, Mobile, Offline).
+- **order_channel:** Indicates the shopping platform used for purchase (Android, iOS, Desktop, Mobile, Offline).
   
-- last_order_channel: the channel through which the customer made their most recent purchase.
+- **last_order_channel:** the channel through which the customer made their most recent purchase.
   
-- first_order_date: the date when the customer made their initial purchase.
+- **first_order_date:** the date when the customer made their initial purchase.
   
-- last_order_date: the date of the customer's most recent purchase.
+- **last_order_date:** the date of the customer's most recent purchase.
   
-- last_order_date_online: the date of the customer's latest online purchase.
+- **last_order_date_online:** the date of the customer's latest online purchase.
   
-- last_order_date_offline: the date of the customer's most recent offline purchase.
+- **last_order_date_offline:** the date of the customer's most recent offline purchase.
   
-- order_num_total_ever_online: the total count of purchases made by the customer on the online platform.
+- **order_num_total_ever_online:** the total count of purchases made by the customer on the online platform.
   
-- order_num_total_ever_offline: the total number of purchases made by the customer offline.
+- **order_num_total_ever_offline:** the total number of purchases made by the customer offline.
   
-- customer_value_total_ever_offline: the cumulative amount spent by the customer for offline purchases.
+- **customer_value_total_ever_offline:** the cumulative amount spent by the customer for offline purchases.
   
-- customer_value_total_ever_online: the total expenditure of the customer on online purchases.
+- **customer_value_total_ever_online:** the total expenditure of the customer on online purchases.
   
-- interested_in_categories_12: Lists the categories in which the customer has made purchases in the last 12 months.
+- **interested_in_categories_12:** Lists the categories in which the customer has made purchases in the last 12 months.
   
 ## TASKS
 -------------------------------
