@@ -1,7 +1,6 @@
 # Customer Return Calculation with Rule-Based Classification
 
 
-
 Photo by: https://online.hbs.edu/blog/post/how-to-calculate-roi-for-a-project
 
 **Business Problem**
@@ -16,7 +15,7 @@ The Persona.csv dataset contains the prices of the products sold by an internati
 
 
 * Price: Price of the game
-* Source: Platform of the game was downloaded
+* Source: The platform of the game was downloaded
 * Sex: Gender of the user
 * Country: Country where the user downloaded the game
 * Age: Age of the user
