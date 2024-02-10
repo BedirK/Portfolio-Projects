@@ -1,6 +1,6 @@
 # Customer Return Calculation with Rule-Based Classification
 
-![image.png](attachment:image.png)
+
 
 Photo by: https://online.hbs.edu/blog/post/how-to-calculate-roi-for-a-project
 
