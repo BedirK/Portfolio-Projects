@@ -68,3 +68,47 @@ The Persona.csv dataset contains the prices of the products sold by an internati
 - **Question 1**: Which segment does a 33-year-old Turkish woman using ANDROID belong to and how much money is expected to bring on average?
 
 - **Question 2**: Which segment does a 35-year-old French woman using IOS belong to and how much money is expected to bring on average?
+
+## Project Results
+
+- Dataset appearance at the beginning:
+
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/94a034bd-1a80-416f-be13-a9f7f16f84c9)
+
+- Dataset appearance at the end:
+
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/9a908031-4c76-45b1-8c7e-da08cd6e78ba)
+
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/5139f257-bc0c-4011-ab32-3f14563f8227)
+
+
+**Average Price by Customer Group & Segment Analysis**
+
+- For each CUSTOMERS_LEVEL_BASED customer persona group, the average purchase price and segment are shown above.
+
+
+**Customer Segment - Price Analysis**:
+
+- For each SEGMENT, the average purchase price, total price, minimum and maximum prices are shown below.
+
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/7e1d0d29-e37d-4763-ab4c-0a4797bf4adc)
+
+### **Segmentation and Revenue Prediction for New/Potential Customers**:
+
+
+**Potential Customer**
+
+- Which segment does a 33-year-old Turkish woman using ANDROID belong to and how much money is expected to bring on average?
+
+
+**Analysis**
+
+- This customer belongs to the "TUR_ANDROID_FEMALE_31_40" customer group within segment A, an estimated average revenue of 41.83 Turkish Liras per shopping.
+
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/1293ede0-a562-495d-8d15-054466f908c9)
+
+### **Results:**
+
+- Understanding customers: Analyzing customer data provides valuable insights into their preferences and behaviors.
+- Revenue Prediction: Predicting the revenue potential of new customers can help optimize resources by focusing on high-value customers.
+- Overall, this project demonstrated the power of data-driven decision-making to understand customer behavior and drive business growth.
