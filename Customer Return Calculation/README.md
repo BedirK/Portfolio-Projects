@@ -98,12 +98,12 @@ The Persona.csv dataset contains the prices of the products sold by an internati
 
 **Potential Customer**
 
-- Which segment does a 33-year-old Turkish woman using ANDROID belong to and how much money is expected to bring on average?
+- What segment does a 33-year-old Turkish woman using ANDROID belong to and how much money can she expect to earn on average?
 
 
 **Analysis**
 
-- This customer belongs to the "TUR_ANDROID_FEMALE_31_40" customer group within segment A, an estimated average revenue of 41.83 Turkish Liras per shopping.
+- This customer belongs to the customer group "TUR_ANDROID_FEMALE_31_40" within segment A, an estimated average revenue of 41.83 Turkish Liras per purchase.
 
 ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/1293ede0-a562-495d-8d15-054466f908c9)
 
