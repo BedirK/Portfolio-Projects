@@ -50,3 +50,4 @@ In this analysis, the Card Customer Dataset provides insights into the general b
 
 These insights provide valuable information for the bank to tailor its services and offerings to better meet the needs of its diverse customer base.
 
+[Project Link on Kaggle](https://www.kaggle.com/code/bedirhankelez/credit-card-customers-eda-project?kernelSessionId=164237219)
