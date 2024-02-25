@@ -64,7 +64,7 @@ This project aims to conduct an in-depth analysis of Credit Card Customers data 
   ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/2fe4ec10-70f8-4ce1-bdfa-fe8eec57fd0b)
 
 
-**Conclusions**
+## **Conclusions**
 
 In this analysis, the Card Customer Dataset provides insights into the general behavior and categorization of customers.The analysis reveals the following:
 
