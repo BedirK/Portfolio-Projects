@@ -26,14 +26,42 @@ This project aims to conduct an in-depth analysis of Credit Card Customers data 
 **Analysis and Visualization of the data**
 
 - Distribution of Credit Card Holders by Age
+  
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/2c879bdc-07a8-46f6-8bcb-01781a692860)
+
 - Distribution of Credit Card Holders by Marital Status and Gender
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/9535f598-0c76-474a-833a-9263354eb8d1)
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/e8d2a639-fd15-4e21-be70-18d4b577572e)
+
 - Distribution of Credit Card Holders by Income Category
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/f30e982e-8b64-436c-9f38-336308edce87)
+
 - Income Category vs Gender Relation
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/83c17dc0-72f0-4620-9ba3-15c9de513c98)
+
 - Distribution of Credit Card Holders by Education Level
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/66eaa0f6-2775-439d-b9b0-85bd48b9552d)
+
 - Distribution of Credit Card Holders by Card Category
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/7736af1c-67d9-4173-bbe4-2d4d89e71b08)
+
 - Education Level Outliers - Box Plot
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/ba0c85db-064f-4117-8101-373170603042)
+
 - Card Category Outliers - Box Plot
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/1adbee9c-e180-4cc3-aa10-55789933f5b6)
+
 - Credit Limit - Avg Utilization Correlation
+
+  ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/2fe4ec10-70f8-4ce1-bdfa-fe8eec57fd0b)
 
 
 **Conclusions**
