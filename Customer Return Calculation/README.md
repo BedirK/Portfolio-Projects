@@ -79,13 +79,12 @@ The Persona.csv dataset contains the prices of the products sold by an internati
 
 ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/9a908031-4c76-45b1-8c7e-da08cd6e78ba)
 
-![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/5139f257-bc0c-4011-ab32-3f14563f8227)
-
 
 **Average Price by Customer Group & Segment Analysis**
 
 - For each CUSTOMERS_LEVEL_BASED customer persona group, the average purchase price and segment are shown above.
 
+![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/5139f257-bc0c-4011-ab32-3f14563f8227)
 
 **Customer Segment - Price Analysis**:
 
@@ -107,8 +106,11 @@ The Persona.csv dataset contains the prices of the products sold by an internati
 
 ![image](https://github.com/BedirK/Portfolio-Projects/assets/103532330/1293ede0-a562-495d-8d15-054466f908c9)
 
-### **Results:**
+## **Results:**
 
-- Understanding customers: Analyzing customer data provides valuable insights into their preferences and behaviors.
-- Revenue Prediction: Predicting the revenue potential of new customers can help optimize resources by focusing on high-value customers.
-- Overall, this project demonstrated the power of data-driven decision-making to understand customer behavior and drive business growth.
+- Utilized level-based personas and segments, leveraging variables such as 'COUNTRY', 'SOURCE', 'SEX', and 'AGE'.
+- Conducted data aggregation by grouping the dataset according to these variables and computing average prices for each group.
+- Performed additional data processing by renaming index names to variable names and categorizing the 'AGE' variable.
+- Defined new level-based customers and estimated their potential revenue segments based on their characteristics.
+- Employed a rule-based classification approach to predict segments for new customers.
+- Estimated the expected average revenue for specific customer profiles (e.g., a 33-year-old Turkish female using ANDROID) based on the predefined segments.
